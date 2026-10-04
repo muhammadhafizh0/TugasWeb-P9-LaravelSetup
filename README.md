@@ -1,20 +1,45 @@
 # TugasWeb-P9-LaravelSetup
 
-Tugas Rutin 9 — Pemrograman Web (3KOM40115), UNIMED, PSIK 25D.
+Tugas Rutin 9 - Pemrograman Web (3KOM40115)
 
-## Langkah Instalasi
+- **Nama:** Muhammad Hafizh Maulana
+- **Jurusan:** Ilmu Komputer
+- **Kampus:** Universitas Negeri Medan (UNIMED)
+- **Kelas:** PSIK 25D
 
-1. Buka folder `www` (Laragon) atau `htdocs` (XAMPP), lalu jalankan:
+## Deskripsi
+
+Project Laravel sederhana berisi halaman Home, About (Testimoni), dan Contact
+dengan tampilan Tailwind CSS (CDN), data dinamis dari array dan database MySQL,
+serta route parameter `/hello/{nama}`.
+
+## Persyaratan
+
+- PHP 8.2 atau lebih baru
+- Composer
+- MySQL (XAMPP/Laragon)
+
+## Langkah Install
+
+1. Clone repository:
    ```bash
-   composer create-project --prefer-dist laravel/laravel:^11.x TugasWeb-P9-LaravelSetup
-   ```
-2. Masuk ke folder project dan buka dengan VSCode:
-   ```bash
+   git clone https://github.com/muhammadhafizh0/TugasWeb-P9-LaravelSetup.git
    cd TugasWeb-P9-LaravelSetup
-   code .
    ```
-3. Buat database baru di phpMyAdmin, misal `tugasweb_p9`.
-4. Konfigurasi file `.env`:
+2. Install dependency:
+   ```bash
+   composer install
+   ```
+3. Salin file environment:
+   ```bash
+   copy .env.example .env
+   ```
+   (Mac/Linux: `cp .env.example .env`)
+4. Generate application key:
+   ```bash
+   php artisan key:generate
+   ```
+5. Buat database `tugasweb_p9` di phpMyAdmin, lalu atur `.env`:
    ```
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -23,7 +48,6 @@ Tugas Rutin 9 — Pemrograman Web (3KOM40115), UNIMED, PSIK 25D.
    DB_USERNAME=root
    DB_PASSWORD=
    ```
-5. Copy file-file dari folder ini (`routes/`, `app/`, `database/migrations/`, `resources/views/`) ke project Laravel yang baru dibuat, timpa file bawaan yang namanya sama.
 6. Jalankan migrasi:
    ```bash
    php artisan migrate
@@ -32,27 +56,55 @@ Tugas Rutin 9 — Pemrograman Web (3KOM40115), UNIMED, PSIK 25D.
    ```bash
    php artisan serve
    ```
-8. Buka `http://127.0.0.1:8000` di browser, lalu **screenshot halaman welcome/home** untuk dilampirkan sebagai bukti tugas.
+8. Buka `http://127.0.0.1:8000`
 
-## Struktur Folder Penting
+## Daftar Route
 
-- `routes/web.php` — berisi 3 route custom (`/`, `/about`, `/contact`) plus bonus `/hello/{nama}`.
-- `app/Http/Controllers/HomeController.php` — controller dibuat dengan `php artisan make:controller HomeController`, menangani ketiga route dan mengirim data dinamis (array & data dari model) ke view.
-- `app/Models/Testimonial.php` & `database/migrations/..._create_testimonials_table.php` — model + migration dibuat dengan `php artisan make:model Testimonial -m`, dipakai untuk data dinamis di halaman `/about`.
-- `resources/views/*.blade.php` — Blade view untuk masing-masing route, menampilkan data dinamis dari controller.
+| URL | Keterangan |
+|-----|------------|
+| `/` | Halaman Home (biodata dan skill) |
+| `/about` | Halaman About (berisi Testimoni) |
+| `/contact` | Halaman Contact |
+| `/hello/{nama}` | Sapaan dinamis berdasarkan parameter |
 
-## Requirement yang Dipenuhi
+## Struktur Folder
 
-1. ✅ Install Composer & buat project
-2. ✅ Konfigurasi `.env` untuk MySQL (buat database di phpMyAdmin secara manual)
-3. ✅ `artisan serve` berjalan (screenshot manual oleh mahasiswa)
-4. ✅ 3 route custom (`/`, `/about`, `/contact`) mengembalikan Blade view
-5. ✅ View menampilkan data dinamis dari array (`home`, `contact`) dan dari model (`about`)
-6. ✅ `make:controller` (HomeController) & `make:model -m` (Testimonial) masing-masing 1x
-7. ✅ README ini menjelaskan langkah install dan struktur folder
-8. Nama repo: `TugasWeb-P9-LaravelSetup`
+| Folder/File | Fungsi |
+|-------------|--------|
+| `app/Models/` | Model (M pada MVC), berinteraksi dengan database |
+| `app/Http/Controllers/` | Controller (C pada MVC), memproses request dan memilih view |
+| `resources/views/` | View Blade (V pada MVC), tampilan HTML |
+| `routes/web.php` | Definisi route aplikasi web |
+| `database/migrations/` | Skema tabel database (version control database) |
+| `config/` | File konfigurasi aplikasi |
+| `public/` | Entry point (`index.php`) dan aset publik |
+| `storage/` | Log, cache, dan file upload |
+| `bootstrap/` | File untuk menjalankan (boot) framework |
+| `tests/` | File pengujian |
+| `.env` | Konfigurasi lokal (database, APP_KEY), tidak di-commit |
+| `.env.example` | Contoh template file `.env` |
+| `composer.json` | Daftar dependency PHP |
+| `vendor/` | Library hasil `composer install`, tidak di-commit |
 
-## Bonus
+## Screenshot
 
-- Styling menggunakan Tailwind CDN (`<script src="https://cdn.tailwindcss.com">`) di semua view.
-- Route parameter bonus: `/hello/{nama}` — contoh akses: `http://127.0.0.1:8000/hello/Hafizh`
+### Welcome Page Laravel
+![Welcome](screenshots/welcome.png)
+
+### Home
+![Home](screenshots/home.png)
+
+### About (Testimoni)
+![About](screenshots/about.png)
+
+### Contact
+![Contact](screenshots/contact.png)
+
+### Route /hello/{nama}
+![Hello](screenshots/hello.png)
+
+### Database (phpMyAdmin)
+![Database](screenshots/phpmyadmin.png)
+
+### Konfigurasi Database (.env)
+![Env](screenshots/env.png)
